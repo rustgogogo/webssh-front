@@ -80,34 +80,67 @@
         </a>
       </li>
     </ul>
+    <h2>ssh登录</h2>
+    <form @submit.prevent="submit($event)">
+      用户名：
+          <input type="text" class="form-control" placeholder="user" name="username">
+      密码：
+          <input type="password" class="form-control" placeholder="pwd" name="password">
+      端口：
+          <input type="text" class="form-control" placeholder="port" name="port">
+
+          <input type="submit" value="ssh连接" class="login"/>
+    </form>
+
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        msg: 'Welcome to Your Vue.js App'
+      }
+    },
+    methods: {
+      submit: function (event) {
+        var formData = new FormData(event.target);
+        console.log(formData.get("username"));
+        console.log(formData.get("password"));
+        console.log(formData.get("port"));
+
+        //连接ssh，页面跳转
+        this.$router.push({
+          name: 'WebTerminal',
+          params: {
+            user: formData.get("username"),
+            pwd: formData.get("password"),
+            port: formData.get("port")
+          }
+        })
+      }
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+  h1, h2 {
+    font-weight: normal;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+
+  a {
+    color: #42b983;
+  }
 </style>

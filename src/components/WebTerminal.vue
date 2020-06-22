@@ -25,7 +25,11 @@
 
       term.loadAddon(new WebLinksAddon());
 
-      let wsurl = "ws://127.0.0.1:8080/api/v1/webssh" + "?deviceId=demo"
+      let user = this.$route.params.user;
+      let pwd = this.$route.params.pwd;
+      let port = this.$route.params.port;
+
+      let wsurl = "ws://127.0.0.1:8080/api/v1/webssh" + "?deviceId=demo" + "&user=" + user + "&pwd=" + pwd + "&port=" + port;
       this.ws = new WebSocket(wsurl);
       this.ws.onclose = function (e) {
         alert('连接断开，请刷新页面');
